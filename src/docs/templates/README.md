@@ -9,13 +9,13 @@ More information about `dotnet new` can be found at <https://docs.microsoft.com/
 Once the .NET Core SDK has been installed, type the following command to install the templates for creating Orchard Core web applications:
 
 ```CMD
-dotnet new -i OrchardCore.ProjectTemplates::1.0.0-beta3-*
+dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-*
 ```
 
 This will use the most stable release of Orchard Core. In order to use the latest `dev` branch of Orchard Core, the following command can be used:
 
 ```CMD
-dotnet new -i OrchardCore.ProjectTemplates::1.0.0-beta3-* --nuget-source https://www.myget.org/F/orchardcore-preview/api/v3/index.json  
+dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-* --nuget-source https://www.myget.org/F/orchardcore-preview/api/v3/index.json  
 ```
 
 ## Create a new website
@@ -43,7 +43,7 @@ Options:
 
   -ov|--orchard-version  Specifies which version of Orchard Core packages to use.
                          string - Optional
-                         Default: 1.0.0-beta3
+                         Default: 1.0.0-rc1
 ```
 
 Logging can be ignored with this command:
@@ -110,11 +110,11 @@ namespace MyNewWebsite
 #### Module commands
 
 ```CMD
-dotnet new occmsmodule -n ModuleName.OrchardCore
+dotnet new ocmodulecms -n ModuleName.OrchardCore
 
-dotnet new occmsmodule -n ModuleName.OrchardCore --PartName TestPart
+dotnet new ocmodulecms -n ModuleName.OrchardCore --PartName TestPart
 
-dotnet new occmsmodule -n ModuleName.OrchardCore --PartName TestPart --AddPart true
+dotnet new ocmodulecms -n ModuleName.OrchardCore --PartName TestPart --AddPart true
 ```
 
 ### New module from Visual Studio (manual way)
@@ -151,9 +151,9 @@ using OrchardCore.Modules.Manifest;
 ```
 
 For this module to start, we now will need to add a `Startup.cs` file to our new module. See this file as an example:  
-[`OrchardCore.Templates.Module/Startup.cs`](https://github.com/OrchardCMS/OrchardCore/tree/dev/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Module/Startup.cs)
+[`OrchardCore.Templates.Cms.Module/Startup.cs`](https://github.com/OrchardCMS/OrchardCore/tree/dev/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Cms.Module/Startup.cs)
 
-Last step is to add our new module to the `OrchardCore.Cms.Web` project as a reference for including it as part as our website modules. After that, you should be all set for starting building your custom module. You can refer to our [template module](https://github.com/OrchardCMS/OrchardCore/tree/dev/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Module/) for examples of what's basically needed normally.
+Last step is to add our new module to the `OrchardCore.Cms.Web` project as a reference for including it as part as our website modules. After that, you should be all set for starting building your custom module. You can refer to our [template module](https://github.com/OrchardCMS/OrchardCore/tree/dev/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Cms.Module/) for examples of what's basically needed normally.
 
 ## Create a new theme
 

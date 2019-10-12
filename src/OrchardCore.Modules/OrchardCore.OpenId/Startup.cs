@@ -19,6 +19,7 @@ using OpenIddict.Validation;
 using OpenIddict.Validation.Internal;
 using OrchardCore.BackgroundTasks;
 using OrchardCore.Data.Migration;
+using OrchardCore.DisplayManagement;
 using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.Modules;
 using OrchardCore.Navigation;
@@ -123,7 +124,8 @@ namespace OrchardCore.OpenId
         {
             services.TryAddSingleton<IOpenIdServerService, OpenIdServerService>();
             services.TryAddTransient<JwtBearerHandler>();
-            services.AddScoped<IDisplayDriver<ISite>, OpenIdServerSettingsDisplayDriver>();
+            services.AddScoped<IDisplayDriver<OpenIdServerSettings>, OpenIdServerSettingsDisplayDriver>();
+            services.AddScoped<IDisplayManager<OpenIdServerSettings>, DisplayManager<OpenIdServerSettings>>();
             services.AddSingleton<IBackgroundTask, OpenIdBackgroundTask>();
 
             services.AddRecipeExecutionStep<OpenIdServerSettingsStep>();
@@ -158,7 +160,7 @@ namespace OrchardCore.OpenId
             });
         }
 
-        public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
+        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
             async Task<OpenIdServerSettings> GetServerSettingsAsync()
             {
@@ -183,40 +185,40 @@ namespace OrchardCore.OpenId
 
             if (settings.AuthorizationEndpointPath.HasValue)
             {
-                routes.MapAreaRoute(
+                routes.MapAreaControllerRoute(
                     name: "Access.Authorize",
                     areaName: OpenIdConstants.Features.Core,
-                    template: settings.AuthorizationEndpointPath.Value,
+                    pattern: settings.AuthorizationEndpointPath.Value,
                     defaults: new { controller = "Access", action = "Authorize" }
                 );
             }
 
             if (settings.LogoutEndpointPath.HasValue)
             {
-                routes.MapAreaRoute(
+                routes.MapAreaControllerRoute(
                     name: "Access.Logout",
                     areaName: OpenIdConstants.Features.Core,
-                    template: settings.LogoutEndpointPath.Value,
+                    pattern: settings.LogoutEndpointPath.Value,
                     defaults: new { controller = "Access", action = "Logout" }
                 );
             }
 
             if (settings.TokenEndpointPath.HasValue)
             {
-                routes.MapAreaRoute(
+                routes.MapAreaControllerRoute(
                     name: "Access.Token",
                     areaName: OpenIdConstants.Features.Core,
-                    template: settings.TokenEndpointPath.Value,
+                    pattern: settings.TokenEndpointPath.Value,
                     defaults: new { controller = "Access", action = "Token" }
                 );
             }
 
             if (settings.UserinfoEndpointPath.HasValue)
             {
-                routes.MapAreaRoute(
+                routes.MapAreaControllerRoute(
                     name: "UserInfo.Me",
                     areaName: OpenIdConstants.Features.Core,
-                    template: settings.UserinfoEndpointPath.Value,
+                    pattern: settings.UserinfoEndpointPath.Value,
                     defaults: new { controller = "UserInfo", action = "Me" }
                 );
             }
@@ -230,7 +232,8 @@ namespace OrchardCore.OpenId
         {
             services.TryAddSingleton<IOpenIdValidationService, OpenIdValidationService>();
             services.TryAddTransient<JwtBearerHandler>();
-            services.AddScoped<IDisplayDriver<ISite>, OpenIdValidationSettingsDisplayDriver>();
+            services.AddScoped<IDisplayDriver<OpenIdValidationSettings>, OpenIdValidationSettingsDisplayDriver>();
+            services.AddScoped<IDisplayManager<OpenIdValidationSettings>, DisplayManager<OpenIdValidationSettings>>();
 
             services.AddOpenIddict()
                 .AddValidation();

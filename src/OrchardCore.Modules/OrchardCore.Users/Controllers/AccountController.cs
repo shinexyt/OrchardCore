@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Authentication;
@@ -11,7 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using OrchardCore.Admin;
 using OrchardCore.Entities;
 using OrchardCore.Modules;
 using OrchardCore.Settings;
@@ -23,7 +21,6 @@ using OrchardCore.Users.ViewModels;
 namespace OrchardCore.Users.Controllers
 {
     [Authorize]
-    [Admin]
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
@@ -82,7 +79,7 @@ namespace OrchardCore.Users.Controllers
                 }
             }
 
-            await _accountEvents.InvokeAsync(i => i.LoggingInAsync((key, message) => ModelState.AddModelError(key, message)), _logger);
+            await _accountEvents.InvokeAsync(i => i.LoggingInAsync(model.UserName, (key, message) => ModelState.AddModelError(key, message)), _logger);
 
             if (ModelState.IsValid)
             {
@@ -92,7 +89,7 @@ namespace OrchardCore.Users.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    await _accountEvents.InvokeAsync(a => a.LoggedInAsync(), _logger);
+                    await _accountEvents.InvokeAsync(a => a.LoggedInAsync(model.UserName), _logger);
                     return RedirectToLocal(returnUrl);
                 }
                 //if (result.RequiresTwoFactor)
@@ -107,7 +104,7 @@ namespace OrchardCore.Users.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, T["Invalid login attempt."]);
-                    await _accountEvents.InvokeAsync(a => a.LoggingInFailedAsync(), _logger);
+                    await _accountEvents.InvokeAsync(a => a.LoggingInFailedAsync(model.UserName), _logger);
                     return View(model);
                 }
             }

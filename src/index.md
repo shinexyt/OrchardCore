@@ -1,6 +1,6 @@
 # Orchard Core
 
-Orchard Core is a redevelopment of [Orchard CMS](https://github.com/OrchardCMS/Orchard) on [ASP.NET Core](https://www.asp.net/vnext). 
+Orchard Core is a redevelopment of [Orchard CMS](https://github.com/OrchardCMS/Orchard) on [ASP.NET Core](https://docs.microsoft.com/aspnet/core/). 
 
 Orchard Core consists of two different targets:
 
@@ -11,6 +11,8 @@ It’s important to note the differences between the framework and the CMS. Some
 
 [![Join the chat at https://gitter.im/OrchardCMS/OrchardCore](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OrchardCMS/OrchardCore?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![BSD-3-Clause License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://github.com/OrchardCMS/OrchardCore/blob/master/LICENSE)
+[![Documentation](https://readthedocs.org/projects/orchardcore/badge/)](https://orchardcore.readthedocs.io/en/latest/)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/orchard-core/localized.svg)](https://crowdin.com/project/orchard-core)
 
 ## Building Software as a Service (SaaS) solutions with the Orchard Core Framework
 
@@ -50,16 +52,16 @@ Orchard Core CMS supports all major site building strategies:
 
 - **Full CMS**. In this mode, the website uses a theme and templates to render your content, aiming for little to no custom development at all.
 
-- **Decoupled CMS**. The site starts off blank, apart from the content management back-end. You create all the templates you need with Razor Pages or MVC actions and access your content via the content services.
+- **Decoupled CMS**. The site starts off blank, apart from the content management back-end. You create all the templates you need with Razor Pages or MVC actions and access your content via the content services. Ref: <https://www.youtube.com/watch?v=yWpz8p-oaKg>
 
-- **Headless CMS**. The site only manages the content, and you create a separate application that will fetch the managed content using GraphQL or REST APIs.
+- **Headless CMS**. The site only manages the content, and you create a separate application that will fetch the managed content using GraphQL or REST APIs. Ref: <https://www.youtube.com/watch?v=4o9zG17cfa0>
 
 ## Status
 
-The latest released version of Orchard Core is `1.0.0-beta3`.
-The release notes can be found on <https://github.com/OrchardCMS/OrchardCore/releases/tag/1.0.0-beta3>
+The latest released version of Orchard Core is `1.0.0-rc1`.
+The release notes can be found on <https://github.com/OrchardCMS/OrchardCore/releases/tag/1.0.0-rc1>
 
-The software is complete enough for external testing -- that is, by groups outside the organization or community that developed the software. Beta software is usually feature complete, but may have known limitations or bugs. Betas are either closed (private) and limited to a specific set of users, or they can be open to the general public.
+The software is almost ready for final release. No feature development or enhancement of the software is undertaken; tightly scoped bug fixes are the only code you're allowed to write in this phase, and even then only for the most heinous and debilitating of bugs.
 
 Here is a more detailed [roadmap](https://github.com/OrchardCMS/OrchardCore/wiki/Roadmap).
 
@@ -71,6 +73,8 @@ Here is a more detailed [roadmap](https://github.com/OrchardCMS/OrchardCore/wiki
 
 - Follow the samples on <https://github.com/OrchardCMS/OrchardCore.Samples> that will guide you on how to build **modular** and **multi-tenant** applications
 
+- Follow the tutorial inside the [Training Demo Module](https://github.com/Lombiq/Orchard-Training-Demo-Module) to learn how to develop Orchard Core modules.
+
 ### Command line
 
 - Install the latest version of the .NET Core SDK from this page <https://www.microsoft.com/net/download/core>
@@ -79,13 +83,14 @@ Here is a more detailed [roadmap](https://github.com/OrchardCMS/OrchardCore/wiki
 - Call `dotnet run`.
 - Then open the `http://localhost:5000` URL in your browser.
 
-You can also read the [Code Generation Templates documentation](Templates/README) to create new applications from predefined templates.
+You can also read the [Code Generation Templates documentation](./docs/templates/) to create new applications from predefined templates.
 
 ### Visual Studio 2017
 
 - Download Visual Studio 2017 (any edition) from <https://www.visualstudio.com/downloads/>.
 - Open `OrchardCore.sln` and wait for Visual Studio to restore all Nuget packages.
 - Ensure `OrchardCore.Cms.Web` is the startup project and run it.
+- Optionally install the [Lombiq Orchard Visual Studio Extension](https://marketplace.visualstudio.com/items?itemName=LombiqVisualStudioExtension.LombiqOrchardVisualStudioExtension) to add some useful utilities to your Visual Studio such as an error log watcher or a dependency injector.
 
 ### Contributing
 
